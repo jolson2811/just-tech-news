@@ -2,7 +2,7 @@ const router = require('express').Router();
 const sequelize = require('../../config/connection');
 const { Post, User, Comment, Vote } = require('../../models');
 
-// get all posts
+// get all users
 router.get('/', (req, res) => {
     console.log('======================');
     Post.findAll({
@@ -36,7 +36,6 @@ router.get('/', (req, res) => {
         });
 });
 
-// get-one query
 router.get('/:id', (req, res) => {
     Post.findOne({
         where: {
@@ -77,7 +76,6 @@ router.get('/:id', (req, res) => {
         });
 });
 
-// Create a post
 router.post('/', (req, res) => {
     // expects {title: 'Taskmaster goes public!', post_url: 'https://taskmaster.com/press', user_id: 1}
     Post.create({
@@ -92,7 +90,6 @@ router.post('/', (req, res) => {
         });
 });
 
-// PUT /api/posts/upvote
 router.put('/upvote', (req, res) => {
     // custom static method created in models/Post.js
     Post.upvote(req.body, { Vote, Comment, User })
@@ -103,7 +100,6 @@ router.put('/upvote', (req, res) => {
         });
 });
 
-// Update a post's title
 router.put('/:id', (req, res) => {
     Post.update(
         {
@@ -128,7 +124,6 @@ router.put('/:id', (req, res) => {
         });
 });
 
-// Delete a post
 router.delete('/:id', (req, res) => {
     Post.destroy({
         where: {
